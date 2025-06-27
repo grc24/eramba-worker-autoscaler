@@ -1,0 +1,32 @@
+version: '3.9'
+services:
+  eramba:
+    volumes:
+      - logs-cron:/var/log
+      - config:/var/www/eramba/app/upgrade/config
+
+  cron:
+    volumes:
+      - logs-cron:/var/log 
+      - config:/var/www/eramba/app/upgrade/config
+
+
+  log-watcher:
+    build:
+      context: ./watcher
+    container_name: cron-log-watcher
+    volumes:
+      - logs-cron:/var/log
+      - config:/app/config
+    environment:
+      LOG_FILE: "/var/log/cron.log"
+      MAX_WORKERS_FILE: "/app/config/app.php"
+      WATCHER_LOG_FILE: "/var/log/watcher.log"
+    depends_on:
+      - cron
+    restart: always
+
+
+volumes:
+  logs-cron:
+  config:
