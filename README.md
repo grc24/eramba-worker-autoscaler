@@ -1,5 +1,5 @@
 # eramba-worker-autoscaler
-Auto-scaling of workers for Eramba 3.5.2
+Auto-scaling of workers for Eramba 3.25.2
 
 # How to run it :
 
